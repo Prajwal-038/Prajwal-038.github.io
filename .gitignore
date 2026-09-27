@@ -1,0 +1,9 @@
+# Backend (kept private — local dev only, never pushed to the public Pages repo)
+backend/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+.env
+venv/
+.venv/

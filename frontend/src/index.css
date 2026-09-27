@@ -1,0 +1,96 @@
+/* Field-notebook theme — warm paper, ink, hand annotations */
+
+:root {
+  color-scheme: light;
+  --paper: #f6f1e5;
+  --paper-deep: #ece2cb;
+  --card: #fffdf6;
+  --ink: #201d15;
+  --muted: #6f6653;
+  --faint: #9a917c;
+  --line: #d9cdb2;
+  --accent: #bc4a15;
+  --accent-ink: #7c2e0b;
+  --teal: #0e6b5c;
+  --mustard: #d99a00;
+  --highlight: #fdf6df;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --hand: 'Caveat', cursive;
+  --radius: 14px;
+  --nav-h: 66px;
+  --shadow: 3px 4px 0 rgba(32, 29, 21, 0.9);
+}
+
+/* Dark mode — same notebook aesthetic, after hours: warm ink desk, brass lamp. */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #161310;
+  --paper-deep: #1d1812;
+  --card: #221c13;
+  --ink: #f0e7d0;
+  --muted: #b3a888;
+  --faint: #84765a;
+  --line: #453a26;
+  --accent: #e06a1f;
+  --accent-ink: #f0a35e;
+  --teal: #5cc0a8;
+  --mustard: #e8b93e;
+  --highlight: #2a2317;
+  --shadow: 3px 4px 0 rgba(0, 0, 0, 0.65);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+::selection { background: #f4c542; color: #201d15; }
+a { color: inherit; }
+img { max-width: 100%; }
+
+.mono { font-family: var(--mono); }
+.hand { font-family: var(--hand); }
+.serif { font-family: var(--serif); }
+
+/* section headers feel like notebook margins */
+.section { padding: 72px 0; position: relative; }
+.container { width: min(1120px, 92%); margin: 0 auto; }
+.section-kicker {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-kicker::after {
+  content: '';
+  height: 1px;
+  width: 72px;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 11px);
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.section-title em { font-style: italic; color: var(--teal); }
+.section-sub { color: var(--muted); max-width: 660px; margin: 0 0 34px; font-size: 1.02rem; }
+.scribble { font-family: var(--hand); font-size: 1.35rem; color: var(--teal); }
