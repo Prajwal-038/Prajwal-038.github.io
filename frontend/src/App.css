@@ -209,7 +209,7 @@
 [data-theme='dark'] .desk-card::before { background: rgba(232, 185, 62, 0.28); }
 [data-theme='dark'] .desk-card::after { background: rgba(92, 192, 168, 0.18); }
 [data-theme='dark'] .terminal { background: #0e0c08; }
-[data-theme='dark'] .marquee { background: #0e0c08; }
+[data-theme='dark'] .marquee { background: #0e0c08; color: var(--ink); border-color: var(--ink); }
 [data-theme='dark'] ::selection { background: var(--mustard); color: #1c1206; }
 
 /* --- responsive --- */
