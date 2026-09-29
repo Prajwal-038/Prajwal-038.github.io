@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { profile } from '../data/portfolio.js';
+import { profile, resumeUrl } from '../data/portfolio.js';
 
 const ROTATING = [
   'Production object detection · YOLO26 · Detectron2',
@@ -74,6 +74,7 @@ export default function Hero() {
           <div className="hero-meta">
             <a className="btn btn-ghost btn-sm" href={`mailto:${profile.email}`}>Mail</a>
             <a className="btn btn-ghost btn-sm" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a className="btn btn-ghost btn-sm" href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
           </div>
         </motion.div>
 

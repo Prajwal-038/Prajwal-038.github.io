@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { navLinks, profile } from '../data/portfolio.js';
+import { navLinks, profile, resumeUrl } from '../data/portfolio.js';
 
 function getInitialTheme() {
   if (typeof document !== 'undefined' && document.documentElement.dataset.theme) {
@@ -52,6 +52,9 @@ export default function Navbar() {
           >
             {theme === 'dark' ? '☀' : '☾'}
           </button>
+          <a className="btn btn-ghost btn-sm nav-cta" href={resumeUrl} target="_blank" rel="noreferrer">
+            Resume
+          </a>
           <a className="btn btn-primary btn-sm nav-cta" href="#contact">
             Contact
           </a>

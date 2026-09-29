@@ -1,4 +1,4 @@
-import { profile } from '../data/portfolio.js';
+import { profile, resumeUrl } from '../data/portfolio.js';
 
 // Professional colophon footer.
 export default function Footer() {
@@ -19,6 +19,8 @@ export default function Footer() {
             <a href={`mailto:${profile.email}`}>Email</a>
             {' · '}
             <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            {' · '}
+            <a href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
             {' · '}
             <a href="#top">Back to top ↑</a>
           </div>

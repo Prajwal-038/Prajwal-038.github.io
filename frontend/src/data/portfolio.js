@@ -174,3 +174,7 @@ export const navLinks = [
   { href: '#publications', label: 'Research' },
   { href: '#contact', label: 'Contact' },
 ];
+
+// Resume PDF served from frontend/public/Prajwal-S-Resume.pdf.
+// BASE_URL keeps the link correct on GitHub Pages subpaths and local dev.
+export const resumeUrl = `${import.meta.env.BASE_URL}Prajwal-S-Resume.pdf`;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { profile } from '../data/portfolio.js';
+import { profile, resumeUrl } from '../data/portfolio.js';
 import { submitContact } from '../services/api.js';
 
 // Contact info + form. POSTs to /api/contact/; falls back to mailto on failure.
@@ -53,6 +53,7 @@ export default function Contact() {
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 14 }}>
               <a className="btn btn-ghost btn-sm" href={`mailto:${profile.email}`}>Mail</a>
               <a className="btn btn-ghost btn-sm" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="btn btn-ghost btn-sm" href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
             </div>
             <ul className="contact-list">
               <li>⌂ {profile.location}</li>
