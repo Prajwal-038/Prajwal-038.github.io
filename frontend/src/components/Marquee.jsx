@@ -1,16 +1,26 @@
-// Torn-ticker strip of the tools actually touched weekly.
+// Scrolling signal bus of the toolchain.
 const ITEMS = [
-  'YOLO26', 'Detectron2', 'PyTorch', 'OpenCV', 'CVAT', 'Apache Superset',
-  'SQL', 'Git', 'Django', 'Tableau', 'Roboflow', 'Linux',
+  'YOLO26',
+  'DETECTRON2',
+  'PYTORCH',
+  'OPENCV',
+  'CVAT',
+  'DJANGO REST',
+  'APACHE SUPERSET',
+  'SQL',
+  'POSTGRESQL',
+  'TABLEAU',
+  'LINUX',
+  'GIT',
 ];
 
 export default function Marquee() {
   const row = [...ITEMS, ...ITEMS];
   return (
-    <div className="marquee" aria-hidden="true">
-      <div className="marquee-inner">
+    <div className="ticker" aria-hidden="true">
+      <div className="ticker-inner">
         {row.map((t, i) => (
-          <span key={i}>✳ {t}</span>
+          <span key={i}>{t}</span>
         ))}
       </div>
     </div>

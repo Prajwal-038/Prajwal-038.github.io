@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { publications as fallback } from '../data/portfolio.js';
 import { fetchPublications } from '../services/api.js';
 
+// Section 06 — publications log.
 export default function Publications() {
   const [items, setItems] = useState(fallback);
   useEffect(() => {
@@ -12,29 +13,45 @@ export default function Publications() {
     });
     return () => { alive = false; };
   }, []);
+
   return (
-    <section className="section" id="publications">
-      <div className="container">
-        <p className="section-kicker">05 · Research</p>
-        <h2 className="section-title">Publications <em>and research.</em></h2>
-        <p className="section-sub">Peer-reviewed contributions across deep learning and applied machine learning.</p>
-        <div className="grid-3">
-          {items.map((p, i) => (
-            <motion.article
-              className="card" key={p.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.4, delay: (i % 3) * 0.06 }}
-            >
-              <div className="icon">{p.icon ?? '✎'}</div>
-              <h3>{p.title}</h3>
-              <div className="meta-line">{p.venue}</div>
-              <p>{p.detail ?? p.description ?? ''}</p>
-            </motion.article>
-          ))}
-        </div>
+    <section className="section container" id="publications">
+      <div className="sec-head">
+        <span className="sec-idx">06</span>
+        <h2 className="sec-title">Publications</h2>
+        <span className="sec-rule" />
       </div>
+      <p className="sec-sub">
+        Peer-reviewed contributions across deep learning and applied machine learning.
+      </p>
+
+      <motion.div
+        className="module"
+        initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.35 }}
+      >
+        <table className="dtable">
+          <thead>
+            <tr>
+              <th style={{ width: '46%' }}>Title</th>
+              <th>Venue</th>
+              <th style={{ width: '26%' }}>Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((p) => (
+              <tr key={p.title}>
+                <td className="strong">
+                  {p.icon ? `${p.icon} ` : ''}
+                  {p.title}
+                </td>
+                <td>{p.venue}</td>
+                <td>{p.detail ?? p.description ?? ''}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </motion.div>
     </section>
   );
 }

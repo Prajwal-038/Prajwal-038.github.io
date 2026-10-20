@@ -1,49 +1,67 @@
 import { motion } from 'framer-motion';
 import { education, certifications } from '../data/portfolio.js';
 
+// Section 05 — education and certifications.
 export default function Education() {
   return (
-    <section className="section" id="education">
-      <div className="container">
-        <p className="section-kicker">06 · Education</p>
-        <h2 className="section-title">Education <em>and certifications.</em></h2>
-        <p className="section-sub" style={{ marginBottom: 28 }}>Academic foundation in artificial intelligence and data science, complemented by applied research and professional certifications.</p>
-        <div className="grid-2">
-          <motion.div
-            className="card"
-            initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.4 }}
-          >
-            <div className="icon">✎</div>
-            <h3>{education.degree}</h3>
-            <div className="meta-line">
-              {education.school} · {education.period}
-            </div>
-            <div className="pills"><span className="pill cy">{education.cgpa}</span></div>
-            <ul style={{ color: 'var(--muted)', fontSize: '0.92rem', paddingLeft: 18 }}>
-              {education.points.map((p) => <li key={p}>{p}</li>)}
-            </ul>
-          </motion.div>
-          <motion.div
-            className="card"
-            initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.4, delay: 0.08 }}
-          >
-            <div className="icon">★</div>
-            <h3>Professional certifications</h3>
-            <div style={{ display: 'grid', gap: 10, marginTop: 12 }}>
+    <section className="section container" id="education">
+      <div className="sec-head">
+        <span className="sec-idx">05</span>
+        <h2 className="sec-title">Education and Certifications</h2>
+        <span className="sec-rule" />
+      </div>
+      <p className="sec-sub">
+        Academic foundation in artificial intelligence and data science, complemented by
+        applied research and professional certifications.
+      </p>
+
+      <div className="grid-2">
+        <motion.div
+          className="module"
+          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.35 }}
+        >
+          <div className="module-head">
+            <span className="module-idx">EDU-01</span>
+            <span className="led" style={{ marginLeft: 'auto' }} />
+          </div>
+          <h3>{education.degree}</h3>
+          <div className="sub" style={{ marginTop: 6 }}>{education.school} · {education.period}</div>
+          <div className="chips" style={{ marginTop: 12 }}>
+            <span className="chip signal">{education.cgpa}</span>
+          </div>
+          <ul style={{ color: 'var(--ink-2)', fontSize: 12.5, paddingLeft: 16, marginTop: 12 }}>
+            {education.points.map((p) => <li key={p}>{p}</li>)}
+          </ul>
+        </motion.div>
+
+        <motion.div
+          className="module"
+          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.35, delay: 0.08 }}
+        >
+          <div className="module-head">
+            <span className="module-idx">CERT</span>
+            <span className="led" style={{ marginLeft: 'auto' }} />
+          </div>
+          <h3>Professional certifications</h3>
+          <table className="dtable" style={{ marginTop: 12 }}>
+            <thead>
+              <tr>
+                <th>Credential</th>
+                <th>Issuer</th>
+              </tr>
+            </thead>
+            <tbody>
               {certifications.map((c) => (
-                <div key={c.title} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                  <span style={{ fontSize: '1.3rem' }}>{c.icon}</span>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: '0.93rem' }}>{c.title}</div>
-                    <div className="mono" style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>{c.issuer}</div>
-                  </div>
-                </div>
+                <tr key={c.title}>
+                  <td className="strong">{c.title}</td>
+                  <td>{c.issuer}</td>
+                </tr>
               ))}
-            </div>
-          </motion.div>
-        </div>
+            </tbody>
+          </table>
+        </motion.div>
       </div>
     </section>
   );

@@ -6,12 +6,12 @@ function getInitialTheme() {
     return document.documentElement.dataset.theme;
   }
   if (typeof window !== 'undefined' && window.localStorage) {
-    return window.localStorage.getItem('ps-theme') || 'light';
+    return window.localStorage.getItem('ps-theme') || 'dark';
   }
-  return 'light';
+  return 'dark';
 }
 
-// Library-card navbar with a dark-mode toggle in the same stamped aesthetic.
+// Control-panel navbar: status LED, index nav, theme switch, resume.
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState(getInitialTheme);
@@ -29,10 +29,10 @@ export default function Navbar() {
     <header className="nav">
       <div className="nav-inner">
         <a className="brand" href="#top" onClick={() => setOpen(false)}>
-          <span className="brand-mark">P</span>
+          <span className="brand-chip">PS</span>
           <span>
-            <b>{profile.name}</b>
-            <small>bengaluru · cv / data</small>
+            <b>PRAJWAL S</b>
+            <small>Computer Vision / Data</small>
           </span>
         </a>
         <nav className={`nav-links ${open ? 'open' : ''}`}>
@@ -43,19 +43,22 @@ export default function Navbar() {
             </a>
           ))}
         </nav>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div className="nav-right">
+          <span className="status-led">
+            <i className="led" /> Available
+          </span>
           <button
             className="theme-toggle"
             onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
           >
             {theme === 'dark' ? '☀' : '☾'}
           </button>
-          <a className="btn btn-ghost btn-sm nav-cta" href={resumeUrl} target="_blank" rel="noreferrer">
+          <a className="btn btn-sm nav-cta nav-resume" href={resumeUrl} target="_blank" rel="noreferrer">
             Resume
           </a>
-          <a className="btn btn-primary btn-sm nav-cta" href="#contact">
+          <a className="btn btn-solid btn-sm nav-cta" href="#contact">
             Contact
           </a>
           <button className="hamburger" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">

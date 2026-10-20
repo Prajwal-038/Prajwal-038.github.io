@@ -10,11 +10,13 @@ import Publications from './components/Publications.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 
-// Single-page field notebook with a ticker strip after the hero.
+// Single-page technical portfolio.
 export default function App() {
   return (
     <div className="app">
-      <div className="grain" aria-hidden="true" />
+      <div className="bg-grid" aria-hidden="true" />
+      <div className="bg-scan" aria-hidden="true" />
+      <div className="bg-vignette" aria-hidden="true" />
       <Navbar />
       <main>
         <Hero />

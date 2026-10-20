@@ -30,7 +30,7 @@ export const about = {
   heading: 'Engineering vision systems that ship.',
   paragraphs: [
     'I am a Software Engineer at Compviz Technologies, where I build and deploy AI inspection (AIMS) and analytics (KFEANS) platforms used in production. My work spans the full CV lifecycle — dataset design and CVAT auto-annotation pipelines, YOLO26 / Detectron2 model training, inference optimization, and deployment.',
-    'Previously a Research Intern at NIT Karnataka, I worked on multi-emotional speaker recognition with ResNet-18 on Mel-spectrograms. I hold a B.E. in AI & Data Science and have co-authored three peer-reviewed papers across deep learning and applied ML.',
+    'Previously a Research Intern at NIT Karnataka, I worked on multi-emotional speaker recognition with ResNet-18 on Mel-spectrograms. I hold a B.E. in AI and Data Science and have co-authored three peer-reviewed papers across deep learning and applied ML.',
   ],
   highlights: [
     { icon: '🎯', title: 'Detection and Segmentation', text: 'YOLO26, Detectron2, instance segmentation at production scale.' },

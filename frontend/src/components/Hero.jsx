@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { profile, resumeUrl } from '../data/portfolio.js';
 
 const ROTATING = [
-  'Production object detection · YOLO26 · Detectron2',
-  'Annotation pipelines · CVAT · data quality',
-  'Backend systems · Django REST · ticket workflows',
-  'Analytics platforms · Apache Superset · SQL',
+  'object detection / YOLO26 / Detectron2',
+  'annotation pipelines / CVAT / data quality',
+  'backend systems / Django REST / workflows',
+  'analytics / Apache Superset / SQL',
 ];
 
-function useRotator(lines, holdMs = 2600) {
+function useRotator(lines, holdMs = 2800) {
   const [i, setI] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setI((v) => (v + 1) % lines.length), holdMs);
@@ -26,6 +26,7 @@ function useIST() {
         hour: '2-digit',
         minute: '2-digit',
         timeZone: 'Asia/Kolkata',
+        hour12: false,
       }).format(new Date());
     setNow(fmt());
     const t = setInterval(() => setNow(fmt()), 30000);
@@ -34,96 +35,144 @@ function useIST() {
   return now;
 }
 
+// Animated oscilloscope trace — a live-looking signal readout.
+function Scope() {
+  const [points, setPoints] = useState(() => Array.from({ length: 60 }, () => 18 + Math.random() * 4));
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPoints((prev) => {
+        const next = [...prev.slice(1)];
+        const last = prev[prev.length - 1];
+        const drift = (Math.random() - 0.5) * 9;
+        const pull = (18 - last) * 0.22;
+        next.push(Math.max(4, Math.min(40, last + drift + pull)));
+        return next;
+      });
+    }, 90);
+    return () => clearInterval(id);
+  }, []);
+  const d = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${i * 3.4},${p.toFixed(1)}`).join(' ');
+  return (
+    <div>
+      <svg className="scope" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="scopeFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d={`${d} L200,44 L0,44 Z`} fill="url(#scopeFill)" />
+        <path d={d} fill="none" stroke="currentColor" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
+      </svg>
+      <div className="scope-label">
+        <span>CH1 · inference trace</span>
+        <span>12.97°N 77.59°E</span>
+      </div>
+    </div>
+  );
+}
+
 export default function Hero() {
   const line = useRotator(ROTATING);
   const ist = useIST();
   return (
     <section className="hero container" id="top">
       <div className="hero-grid">
-        <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-          <span className="eyebrow">
-            <span className="live-dot" />
-            Bengaluru, India {ist ? `· ${ist} IST` : ''} · Open to opportunities
-          </span>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <div className="hero-eyebrow">
+            <span className="led" />
+            <span>Bengaluru, India {ist ? `· ${ist} IST` : ''}</span>
+            <span>·</span>
+            <span>Open to opportunities</span>
+          </div>
+
           <h1>
-            Prajwal S.
+            <span className="dim">Prajwal S</span>
             <br />
-            I build <span className="italic">computer vision</span> systems for{' '}
-            <span className="underline-sketch">
-              production.
-              <svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M4 14 C 60 4, 140 4, 196 12" fill="none" stroke="#bc4a15" strokeWidth="5" strokeLinecap="round" />
-              </svg>
-            </span>
+            <span className="acc">Computer Vision</span>
+            <span className="dim"> + </span>
+            <span className="acc">Backend</span>
+            <br />
+            <span className="dim">+ Data Systems</span>
           </h1>
+          <h2>Software Engineer</h2>
+
           <p className="hero-sub">
-            Software Engineer at <b>Compviz Technologies</b> specializing in production
-            computer vision and data platforms — <b>YOLO26 / Detectron2</b> inspection
-            pipelines, CVAT annotation systems, the <b>backend for the AIMS ticket
-            management system</b>, and analytics dashboards with measurable business impact.
+            I build production machine-learning systems end to end —{' '}
+            <b>YOLO26 / Detectron2</b> inspection pipelines, <b>CVAT</b> annotation
+            workflows, the <b>backend for the AIMS ticket management system</b>, and
+            analytics dashboards with measurable operational impact.
           </p>
-          <div className="typing">
-            <span>✎ {line}</span>
-            <span className="caret">▌</span>
-          </div>
+
           <div className="hero-cta">
-            <a className="btn btn-primary" href="#projects">View selected work</a>
-            <a className="btn btn-ghost" href="#contact">Contact</a>
-            <span className="hand-note">response within 48 hours</span>
+            <a className="btn btn-solid" href="#projects">Selected Work</a>
+            <a className="btn" href="#contact">Contact</a>
+            <a className="btn" href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
           </div>
+
+          <div className="hero-stats">
+            {profile.stats.map((s) => (
+              <div className="cell" key={s.label}>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
+              </div>
+            ))}
+          </div>
+
           <div className="hero-meta">
-            <a className="btn btn-ghost btn-sm" href={`mailto:${profile.email}`}>Mail</a>
-            <a className="btn btn-ghost btn-sm" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a className="btn btn-ghost btn-sm" href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
+            <span className="m">
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </span>
+            <span className="m">
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">linkedin.com/in/prajwal-s</a>
+            </span>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.12 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="desk-card">
-            <div className="id-row">
-              <div className="avatar">P</div>
-              <div>
-                <div style={{ fontFamily: 'var(--serif)', fontWeight: 700, fontSize: '1.15rem', lineHeight: 1.1 }}>
-                  Prajwal S
+          <div className="instrument">
+            <div className="instrument-bar">
+              <span className="led" />
+              <span>AIMS · inference pipeline</span>
+              <span style={{ marginLeft: 'auto' }}>LIVE</span>
+            </div>
+            <div className="instrument-body">
+              <div className="crt">
+                <pre>
+                  <span className="tok-c"># production asset inspection</span>{'\n'}
+                  <span className="tok-k">from</span> ultralytics <span className="tok-k">import</span> YOLO{'\n\n'}
+                  model = YOLO(<span className="tok-s">'yolo26m.pt'</span>){'\n'}
+                  results = model.predict({'\n'}
+                  {'    '}source=<span className="tok-s">'assets/'</span>, conf=<span className="tok-v">0.45</span>){'\n\n'}
+                  <span className="tok-c"># +30% faster · -15% turnaround</span>{'\n'}
+                  deploy(model, target=<span className="tok-s">'production'</span>) <span className="tok-v">[OK]</span>
+                </pre>
+              </div>
+
+              <Scope />
+
+              <div className="spec-table">
+                <div className="row">
+                  <span className="k">Stack</span>
+                  <span className="v">YOLO26 · Detectron2 · PyTorch</span>
                 </div>
-                <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>
-                  Software Engineer · Computer Vision & Data
+                <div className="row">
+                  <span className="k">Backend</span>
+                  <span className="v">Django · DRF · PostgreSQL</span>
                 </div>
-                <div style={{ marginTop: 8 }}>
-                  <span className="stamp">Production experience</span>
+                <div className="row">
+                  <span className="k">Data</span>
+                  <span className="v">CVAT · Superset · SQL</span>
+                </div>
+                <div className="row">
+                  <span className="k">Status</span>
+                  <span className="v" style={{ color: 'var(--phos)' }}>● Deployed</span>
                 </div>
               </div>
-            </div>
-            <div className="terminal">
-              <div className="terminal-bar">
-                <span className="dot" style={{ background: '#e0685c' }} />
-                <span className="dot" style={{ background: '#e8b93e' }} />
-                <span className="dot" style={{ background: '#5fae7e' }} />
-                <span style={{ marginLeft: 8 }}>aims — production inference pipeline</span>
-              </div>
-              <pre>
-                <span className="tok-c"># asset inspection pipeline</span>{'\n'}
-                <span className="tok-k">from</span> ultralytics <span className="tok-k">import</span> YOLO{'\n\n'}
-                model = YOLO(<span className="tok-s">'yolo26m.pt'</span>){'\n'}
-                results = model.predict(source=<span className="tok-s">'assets/'</span>, conf=<span className="tok-v">0.45</span>){'\n\n'}
-                <span className="tok-c"># +30% faster · −15% turnaround · −25% labeling</span>{'\n'}
-                deploy(model, target=<span className="tok-s">'production'</span>)  <span className="tok-v">✓</span>
-              </pre>
-            </div>
-            <div className="field-notes">
-              {profile.stats.map((s) => (
-                <div className="note" key={s.label}>
-                  <b>{s.value}</b>
-                  <span>{s.label}</span>
-                </div>
-              ))}
-            </div>
-            <div className="doodle-arrow" style={{ marginTop: 10 }}>
-              ↳ Metrics from production deployments
             </div>
           </div>
         </motion.div>
