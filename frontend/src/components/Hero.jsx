@@ -48,38 +48,26 @@ const IMPACT = [
   { value: '+35%', label: 'Actionable insight' },
 ];
 
-// Animated oscilloscope trace — a live-looking signal readout.
-function Scope() {
-  const [points, setPoints] = useState(() => Array.from({ length: 60 }, () => 18 + Math.random() * 4));
-  useEffect(() => {
-    const id = setInterval(() => {
-      setPoints((prev) => {
-        const next = [...prev.slice(1)];
-        const last = prev[prev.length - 1];
-        const drift = (Math.random() - 0.5) * 9;
-        const pull = (18 - last) * 0.22;
-        next.push(Math.max(4, Math.min(40, last + drift + pull)));
-        return next;
-      });
-    }, 90);
-    return () => clearInterval(id);
-  }, []);
-  const d = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${i * 3.4},${p.toFixed(1)}`).join(' ');
+const PIPELINE = [
+  { id: '01', label: 'Dataset', note: 'sampling' },
+  { id: '02', label: 'Annotate', note: 'CVAT' },
+  { id: '03', label: 'Train', note: 'YOLO26' },
+  { id: '04', label: 'Serve', note: 'Django' },
+  { id: '05', label: 'Monitor', note: 'Superset' },
+];
+
+// How delivered work actually flows — a static schematic, no motion.
+function Flow() {
   return (
-    <div>
-      <svg className="scope" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="scopeFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d={`${d} L200,44 L0,44 Z`} fill="url(#scopeFill)" />
-        <path d={d} fill="none" stroke="currentColor" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
-      </svg>
-      <div className="scope-label">
-        <span>Signal</span>
-        <span>12.97°N 77.59°E</span>
+    <div className="panel-block">
+      <div className="block-label">Delivery path</div>
+      <div className="flow">
+        {PIPELINE.map((s) => (
+          <div className="flow-step" key={s.id}>
+            <b>{s.label}</b>
+            <span>{s.note}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -176,7 +164,7 @@ export default function Hero() {
                 </div>
               </div>
 
-              <Scope />
+              <Flow />
 
               <div className="avail">
                 <span className="led" />
