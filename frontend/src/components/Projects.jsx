@@ -18,7 +18,7 @@ export default function Projects() {
     <section className="section container" id="projects">
       <div className="sec-head">
         <span className="sec-idx">03</span>
-        <h2 className="sec-title">Selected Work</h2>
+        <h2 className="sec-title">Projects</h2>
         <span className="sec-rule" />
       </div>
       <p className="sec-sub">

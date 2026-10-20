@@ -106,7 +106,7 @@ export default function Hero() {
           </p>
 
           <div className="hero-cta">
-            <a className="btn btn-solid" href="#projects">Selected Work</a>
+            <a className="btn btn-solid" href="#projects">Projects</a>
             <a className="btn" href="#contact">Contact</a>
             <a className="btn" href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
           </div>

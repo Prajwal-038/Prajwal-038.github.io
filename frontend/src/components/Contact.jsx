@@ -20,7 +20,7 @@ export default function Contact() {
       return;
     }
     setSending(true);
-    setStatus('TRANSMITTING...');
+    setStatus('SENDING...');
     const res = await submitContact(form);
     setSending(false);
     if (res.ok) {
@@ -107,7 +107,7 @@ export default function Contact() {
             <textarea id="message" name="message" placeholder="Describe the role, project, or collaboration..." value={form.message} onChange={onChange} />
           </div>
           <button className="btn btn-solid" type="submit" disabled={sending}>
-            {sending ? 'Transmitting...' : 'Transmit'}
+            {sending ? 'Sending...' : 'Contact'}
           </button>
           <div className={`form-status ${ok ? 'ok' : ''}`}>{status}</div>
         </motion.form>
