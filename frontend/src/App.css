@@ -94,7 +94,7 @@
 .hero-meta .m a { color: var(--data); text-decoration: none; }
 .hero-meta .m a:hover { text-decoration: underline; }
 
-/* --- CRT instrument panel --- */
+/* --- instrument panel --- */
 .instrument { background: var(--panel); border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; }
 .instrument-bar {
   display: flex; align-items: center; gap: 8px; padding: 8px 12px;
@@ -103,25 +103,31 @@
 }
 .instrument-bar .led { margin-right: 2px; }
 .instrument-body { padding: 16px; }
-.crt {
-  background: #05080d; color: #b9f3d0; border: 1px solid var(--line);
-  border-radius: 4px; padding: 14px 15px; position: relative; overflow: hidden;
-}
-[data-theme='light'] .crt { background: #0a0f16; }
-.crt::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: repeating-linear-gradient(0deg, rgba(120, 230, 190, 0.05) 0 1px, transparent 1px 3px);
-}
-.crt pre { margin: 0; font-family: var(--mono); font-size: 11px; line-height: 1.75; overflow-x: auto; position: relative; z-index: 1; }
-.tok-k { color: #f5a524; } .tok-s { color: #7ee787; } .tok-v { color: #4cc9f0; } .tok-c { color: #6b7f92; }
 
-.scope { margin-top: 12px; border: 1px solid var(--line); border-radius: 4px; background: #05080d; display: block; width: 100%; height: 74px; }
+/* --- instrument panel readouts --- */
+.sys-list { display: grid; gap: 10px; }
+.sys-row { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: baseline; }
+.sys-name { font-family: var(--disp); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--ink); }
+.sys-dots { border-bottom: 1px dotted var(--line-2); transform: translateY(-3px); }
+.sys-desc { font-size: 11px; color: var(--ink-2); grid-column: 1; }
+.sys-stack { font-size: 10px; letter-spacing: 0.06em; color: var(--data); grid-column: 2; text-align: right; }
+
+.panel-block { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.block-label { font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+.impact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 16px; }
+.impact b { font-family: var(--disp); font-size: 1.15rem; font-weight: 700; color: var(--signal); display: block; line-height: 1; }
+.impact span { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+
+.avail { display: flex; align-items: center; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 10.5px; letter-spacing: 0.08em; color: var(--ink-2); }
+.avail-note { margin-left: auto; color: var(--ink-3); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.focus-strip { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 0 0 18px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.focus-strip .focus-label { color: var(--ink-3); }
+.focus-strip span + span::before { content: '·'; margin-right: 14px; color: var(--ink-3); }
+.focus-strip .focus-label + span::before { content: none; margin: 0; }
+
+.scope { margin-top: 12px; border: 1px solid var(--line); border-radius: 4px; background: #05080d; display: block; width: 100%; height: 74px; color: var(--data); }
 .scope-label { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-top: 6px; }
-
-.spec-table { margin-top: 14px; display: grid; gap: 9px; }
-.spec-table .row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: baseline; font-size: 11px; }
-.spec-table .row .k { color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; font-size: 10px; }
-.spec-table .row .v { color: var(--ink); font-family: var(--disp); font-weight: 600; }
 
 /* --- signal ticker --- */
 .ticker {

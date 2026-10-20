@@ -35,6 +35,19 @@ function useIST() {
   return now;
 }
 
+const SYSTEMS = [
+  { name: 'AIMS', desc: 'Computer vision inspection', stack: 'YOLO26 / Detectron2' },
+  { name: 'KFEANS', desc: 'Analytics dashboards', stack: 'Apache Superset' },
+  { name: 'Tickets', desc: 'Workflow backend', stack: 'Django REST' },
+];
+
+const IMPACT = [
+  { value: '+30%', label: 'Inference speed' },
+  { value: '−15%', label: 'Turnaround time' },
+  { value: '−25%', label: 'Labeling effort' },
+  { value: '+35%', label: 'Actionable insight' },
+];
+
 // Animated oscilloscope trace — a live-looking signal readout.
 function Scope() {
   const [points, setPoints] = useState(() => Array.from({ length: 60 }, () => 18 + Math.random() * 4));
@@ -65,7 +78,7 @@ function Scope() {
         <path d={d} fill="none" stroke="currentColor" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
       </svg>
       <div className="scope-label">
-        <span>CH1 · inference trace</span>
+        <span>Signal</span>
         <span>12.97°N 77.59°E</span>
       </div>
     </div>
@@ -110,13 +123,12 @@ export default function Hero() {
             <a className="btn" href={resumeUrl} target="_blank" rel="noreferrer">Resume</a>
           </div>
 
-          <div className="hero-stats">
-            {profile.stats.map((s) => (
-              <div className="cell" key={s.label}>
-                <b>{s.value}</b>
-                <span>{s.label}</span>
-              </div>
-            ))}
+          <div className="focus-strip">
+            <span className="focus-label">Focus</span>
+            <span>Computer Vision</span>
+            <span>Backend &amp; APIs</span>
+            <span>Data Analytics</span>
+            <span>MLOps</span>
           </div>
 
           <div className="hero-meta">
@@ -137,41 +149,39 @@ export default function Hero() {
           <div className="instrument">
             <div className="instrument-bar">
               <span className="led" />
-              <span>AIMS · inference pipeline</span>
-              <span style={{ marginLeft: 'auto' }}>LIVE</span>
+              <span>Systems I work on</span>
+              <span style={{ marginLeft: 'auto' }}>Compviz</span>
             </div>
             <div className="instrument-body">
-              <div className="crt">
-                <pre>
-                  <span className="tok-c"># production asset inspection</span>{'\n'}
-                  <span className="tok-k">from</span> ultralytics <span className="tok-k">import</span> YOLO{'\n\n'}
-                  model = YOLO(<span className="tok-s">'yolo26m.pt'</span>){'\n'}
-                  results = model.predict({'\n'}
-                  {'    '}source=<span className="tok-s">'assets/'</span>, conf=<span className="tok-v">0.45</span>){'\n\n'}
-                  <span className="tok-c"># +30% faster · -15% turnaround</span>{'\n'}
-                  deploy(model, target=<span className="tok-s">'production'</span>) <span className="tok-v">[OK]</span>
-                </pre>
+              <div className="sys-list">
+                {SYSTEMS.map((s) => (
+                  <div className="sys-row" key={s.name}>
+                    <span className="sys-name">{s.name}</span>
+                    <span className="sys-dots" />
+                    <span className="sys-desc">{s.desc}</span>
+                    <span className="sys-stack">{s.stack}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="panel-block">
+                <div className="block-label">Measured impact</div>
+                <div className="impact-grid">
+                  {IMPACT.map((m) => (
+                    <div className="impact" key={m.label}>
+                      <b>{m.value}</b>
+                      <span>{m.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <Scope />
 
-              <div className="spec-table">
-                <div className="row">
-                  <span className="k">Stack</span>
-                  <span className="v">YOLO26 · Detectron2 · PyTorch</span>
-                </div>
-                <div className="row">
-                  <span className="k">Backend</span>
-                  <span className="v">Django · DRF · PostgreSQL</span>
-                </div>
-                <div className="row">
-                  <span className="k">Data</span>
-                  <span className="v">CVAT · Superset · SQL</span>
-                </div>
-                <div className="row">
-                  <span className="k">Status</span>
-                  <span className="v" style={{ color: 'var(--phos)' }}>● Deployed</span>
-                </div>
+              <div className="avail">
+                <span className="led" />
+                <span>Open to opportunities</span>
+                <span className="avail-note">Response within 48h</span>
               </div>
             </div>
           </div>
